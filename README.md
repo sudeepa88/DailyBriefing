@@ -89,45 +89,6 @@ This project uses `async/await` and `TaskGroup` instead of traditional GCD (`Dis
 
 > Note: UI updates still need to be on the main thread. Swift Concurrency doesn't remove that rule; it enforces it at compile time, and `await MainActor.run { }` (or an `@MainActor` context) handles the switch.
 
-### Side by side
-
-**GCD**
-
-```swift
-let group = DispatchGroup()
-
-group.enter()
-APICaller.getWeatherData { result in
-    DispatchQueue.main.async {
-        // update UI
-        group.leave()
-    }
-}
-
-group.enter()
-APICaller.getRandomFacts { result in
-    DispatchQueue.main.async {
-        // update UI
-        group.leave()
-    }
-}
-
-group.notify(queue: .main) {
-    self.hideLoader()
-}
-```
-
-**Swift Concurrency**
-
-```swift
-await withTaskGroup(of: String.self) { group in
-    group.addTask { /* weather */ }
-    group.addTask { /* fact */ }
-    for await result in group { print(result) }
-}
-hideLoader()
-```
-
 ## How loading works
 
 ```
