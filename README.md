@@ -119,7 +119,4 @@ Parent Task (stored in loadTask)
 2. Select a simulator or device.
 3. Press **⌘R**.
 
-## Notes
 
-- The weather coordinates in `NetworkConstants.weatherAddress` decide which city is shown. For Kolkata use `latitude=22.5726&longitude=88.3639`.
-- Make sure `dogImgAddress` has no trailing space, or `URL(string:)` will fail.
