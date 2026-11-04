@@ -1,4 +1,4 @@
-# DashboardScreen
+# Daily Briefing
 
 A UIKit iOS app that shows a simple dashboard with three live sections, each loaded from a public API:
 
