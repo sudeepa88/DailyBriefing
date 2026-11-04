@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct WeatherPositionModel: Codable {
     let latitude: Double
     let longitude: Double

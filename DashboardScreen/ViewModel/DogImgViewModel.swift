@@ -5,9 +5,7 @@
 //  Created by Sudeepa on 03/11/26.
 //
 
-import Foundation
 import UIKit
-
 
 @MainActor
 class DogImgViewModel {
@@ -28,6 +26,5 @@ class DogImgViewModel {
         let dogData = try await getDogImgData()
         return try await APICaller.downloadImage(from: dogData.message)
     }
-    
 }
 

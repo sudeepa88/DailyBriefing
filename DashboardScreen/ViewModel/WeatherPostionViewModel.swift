@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 @MainActor
 class WeatherPostionViewModel {
 
@@ -26,5 +24,3 @@ class WeatherPostionViewModel {
         }
     }
 }
-
-

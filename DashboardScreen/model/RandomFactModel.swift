@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct RandomFactModel: Codable {
     let id: String
     let text: String

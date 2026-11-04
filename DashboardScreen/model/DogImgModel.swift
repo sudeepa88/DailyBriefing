@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct DogImgModel: Codable {
     let message: String
     let status: String

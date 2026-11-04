@@ -22,8 +22,6 @@ final class TemperatureView: UIView {
        return label
    }()
 
-
-
    private let iconView: UIImageView = {
        let config = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular)
        let iv = UIImageView(image: UIImage(systemName: "sun.max", withConfiguration: config))
@@ -46,9 +44,7 @@ final class TemperatureView: UIView {
    }
 
    func configure(temperature: Double) {
-      
        temperatureLabel.text = "\(Int(temperature.rounded()))°C"
-    
    }
 
    private func setupLayout() {

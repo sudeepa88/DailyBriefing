@@ -22,7 +22,8 @@ public class APICaller {
         }
 
         // Await the network response
-        let (data, _) = try await URLSession.shared.data(from: url)
+        //my .0 is pointing to the data of the tupe that we are receiving as (data, URLResponse)
+        let data = try await URLSession.shared.data(from: url).0
         // Decode JSON
         let weatherData = try JSONDecoder().decode(
             WeatherPositionModel.self,
@@ -44,7 +45,7 @@ public class APICaller {
         }
         
         //2. URLSession For network request
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let data = try await URLSession.shared.data(from: url).0
         //3. Json Decoding
         let randomFactData = try JSONDecoder().decode(RandomFactModel.self, from: data)
         return randomFactData
@@ -62,7 +63,7 @@ public class APICaller {
         }
         
         //2. URLSession for Network
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let data = try await URLSession.shared.data(from: url).0
         //3. Json Decoding
         
         let dogImgData = try JSONDecoder().decode(DogImgModel.self, from: data)

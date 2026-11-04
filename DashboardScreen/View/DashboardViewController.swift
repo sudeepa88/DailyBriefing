@@ -32,23 +32,18 @@ class DashboardViewController: UIViewController {
         return label
     }()
     
-//    private let temperatureView = TemperatureView(temperature: 28, city: "Kolkata", condition: "Clear sky")
     private let temperatureView = TemperatureView(temperature: 28)
     private let factView = FactView(fact: "A day on Venus is longer than a year on Venus.")
     private let pictureView = PictureView(image: UIImage(systemName: "photo"))
-    
     
     var weatherViewModel: WeatherPostionViewModel = WeatherPostionViewModel()
     var factViewModel: RandomFactViewModel = RandomFactViewModel()
     var dogImgViewModel: DogImgViewModel = DogImgViewModel()
     
-    
     //For task controlling
     private var loadTask: Task<Void, Never>?
     
-    
     // MARK: - Loader
-    
     /// Full-screen overlay that blocks touches while data loads.
     private let loaderOverlay: UIView = {
         let v = UIView()
@@ -66,9 +61,6 @@ class DashboardViewController: UIViewController {
         return indicator
     }()
     
-    
-    
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -76,10 +68,6 @@ class DashboardViewController: UIViewController {
         view.backgroundColor = .white
         setupLayout()
         setupLoader()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         loadDashboardData()
     }
     
@@ -88,30 +76,25 @@ class DashboardViewController: UIViewController {
         loadTask?.cancel()
     }
     
-    
     //MARK: All the dashboard data
     
     private func loadDashboardData() {
         loadTask?.cancel()
         showLoader()
         loadTask = Task { [weak self] in
-            await withTaskGroup(of: String.self) { group in
+            await withTaskGroup(of: Void.self) { group in
                 //1. 1st Task
                 group.addTask {
                     do {
-                        
                         let weather = try await self?.weatherViewModel.getWeatherData()
                         await MainActor.run {
                             self?.temperatureView.configure(
                                 temperature: weather?.currentWeather.temperature ?? 00,
                             )
                         }
-                        return "Weather is too gawdd\(weather?.currentWeather.temperature)"
-                        
                     } catch {
-                        return "Weather failed: \(error.localizedDescription)"
+                        print("Weather failed: \(error.localizedDescription)")
                     }
-                    
                 }
                 
                 //2. 2nd Task
@@ -121,9 +104,8 @@ class DashboardViewController: UIViewController {
                         await MainActor.run {
                             self?.factView.configure(fact: fact?.text ?? "No data")
                         }
-                        return "Fact: \(fact?.text)"
                     } catch {
-                        return "Fact failed: \(error.localizedDescription)"
+                        print("Fact failed: \(error.localizedDescription)")
                     }
                 }
                 
@@ -135,10 +117,8 @@ class DashboardViewController: UIViewController {
                         await MainActor.run {
                             self?.pictureView.configure(image: img)
                         }
-                        
-                        return "Image: \(img)"
                     } catch {
-                        return "Image failed: \(error.localizedDescription)"
+                        print("Image failed: \(error.localizedDescription)")
                     }
                 }
                 
@@ -153,8 +133,6 @@ class DashboardViewController: UIViewController {
             self?.hideLoader()
         }
     }
-    
-    
     
     // MARK: - Layout
     
@@ -194,7 +172,6 @@ class DashboardViewController: UIViewController {
         return line
     }
     
-    
     //MARK: Loader Section
     
     private func setupLoader() {
@@ -227,7 +204,4 @@ class DashboardViewController: UIViewController {
             self.loaderOverlay.isHidden = true
         })
     }
-
 }
-
-

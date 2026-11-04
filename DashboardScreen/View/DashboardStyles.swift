@@ -7,9 +7,6 @@
 
 import UIKit
 
-
-
-
 enum DashboardStyle {
    static let accent = UIColor(red: 0.90, green: 0.34, blue: 0.18, alpha: 1)   
    static let primaryText = UIColor(white: 0.07, alpha: 1)
